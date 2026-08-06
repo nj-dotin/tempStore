@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-black: #050505;
+  --color-white: #FFFFFF;
+  --color-gold: #D4AF37;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #FFFFFF;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: normal;
+}
+
+/* Base utility for hiding scrollbars if necessary, but Lenis handles smooth scrolling */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Utility classes for GSAP */
+.split-line {
+  overflow: hidden;
+}
+
+.mask-reveal {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+}
