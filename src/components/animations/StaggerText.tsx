@@ -36,11 +36,19 @@ export default function StaggerText({ text, className = "", delay = 0, trigger }
 
   return (
     <span ref={containerRef} className={`inline-block ${className}`}>
-      {text.split('').map((char, i) => (
-        <span key={i} className="inline-block pb-1" style={{ clipPath: 'polygon(-20% 0%, 120% 0%, 120% 100%, -20% 100%)' }}>
-          <span className="char inline-block translate-y-[100%] will-change-transform leading-[0.85]">
-            {char === ' ' ? '\u00A0' : char}
-          </span>
+      {text.split(' ').map((word, wordIndex, wordsArray) => (
+        <span key={wordIndex} className="inline-block whitespace-nowrap">
+          {word.split('').map((char, charIndex) => (
+            <span key={charIndex} className="inline-block pb-1" style={{ clipPath: 'polygon(-20% 0%, 120% 0%, 120% 100%, -20% 100%)' }}>
+              <span className="char inline-block translate-y-[100%] will-change-transform leading-[0.85]">
+                {char}
+              </span>
+            </span>
+          ))}
+          {/* Add a space after each word, except the last one */}
+          {wordIndex < wordsArray.length - 1 && (
+            <span className="inline-block pb-1">&nbsp;</span>
+          )}
         </span>
       ))}
     </span>
