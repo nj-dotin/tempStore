@@ -33,6 +33,16 @@ export default function RootLayout({
         <SmoothScrolling>
           {children}
         </SmoothScrolling>
+
+        {/* Global Floating Developer Badge */}
+        <a 
+          href="https://www.fuera.in.net/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] bg-zinc-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-800 text-[10px] md:text-xs font-sans tracking-widest text-zinc-400 uppercase hover:text-white hover:border-zinc-600 transition-all duration-300 shadow-xl"
+        >
+          design build by <span className="text-white font-bold">FUERA</span>
+        </a>
       </body>
     </html>
   );

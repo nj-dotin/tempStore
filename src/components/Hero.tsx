@@ -63,7 +63,7 @@ export default function Hero() {
             <StaggerText text="Where Art" delay={4.0} />
           </h1>
         </div>
-        <div className="overflow-hidden">
+        <div className="overflow-hidden pt-4 md:pt-8 pb-4 md:pb-8 pr-4">
           <h1 className="text-[12vw] md:text-[8vw] font-serif uppercase leading-none tracking-tighter text-gold italic">
             <StaggerText text="Meets Leadership" delay={4.3} />
           </h1>

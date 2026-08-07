@@ -38,14 +38,29 @@ export default function Experience() {
       );
       
       gsap.fromTo(featureImageRef.current,
-        { scale: 1.3 },
+        { scale: 1.4 },
         {
-          scale: 1,
+          scale: 1.15,
           duration: 2,
           ease: "power3.out",
           scrollTrigger: {
             trigger: featureWrapperRef.current,
             start: "top 85%",
+          }
+        }
+      );
+
+      // Parallax scroll effect
+      gsap.fromTo(featureImageRef.current,
+        { yPercent: -15 },
+        {
+          yPercent: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: featureWrapperRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
           }
         }
       );
@@ -55,7 +70,7 @@ export default function Experience() {
   return (
     <section id="experience" className="bg-black text-white overflow-hidden pb-24 md:pb-32">
       {/* Marquee */}
-      <div className="py-12 border-y border-zinc-800 mb-12 md:mb-24 flex whitespace-nowrap overflow-hidden">
+      <div className="py-8 border-y border-zinc-800 mb-8 md:mb-12 flex whitespace-nowrap overflow-hidden">
         <div ref={marqueeRef} className="flex gap-8 items-center text-4xl md:text-7xl font-sans tracking-tight uppercase">
           <span>PERSONAL PORTFOLIO —</span>
           <span>PERSONAL PORTFOLIO —</span>
