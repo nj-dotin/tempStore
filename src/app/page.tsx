@@ -3,12 +3,11 @@ import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import Services from '@/components/Services';
-import FeaturedShows from '@/components/FeaturedShows';
+import FeaturedImage from '@/components/FeaturedImage';
+
 import Gallery from '@/components/Gallery';
 import Experience from '@/components/Experience';
-import Awards from '@/components/Awards';
-import Team from '@/components/Team';
+
 import Contact from '@/components/Contact';
 
 export default function Home() {
@@ -20,12 +19,11 @@ export default function Home() {
       <main className="w-full bg-black">
         <Hero />
         <About />
-        <Services />
-        <FeaturedShows />
+        <FeaturedImage />
+
         <Gallery />
         <Experience />
-        <Awards />
-        <Team />
+
         <Contact />
       </main>
     </>

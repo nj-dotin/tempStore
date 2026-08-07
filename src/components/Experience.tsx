@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import MagneticButton from './animations/MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,19 +43,21 @@ export default function Experience() {
           data-cursor="hover"
         >
           <Image
-            src="/hero-image.jpeg"
+            src="/featured-work.jpeg"
             alt="Featured Video"
             fill
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
           />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center text-black transform scale-100 group-hover:scale-110 transition-transform duration-500">
-              {/* Eye Icon SVG */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-12 md:h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <MagneticButton className="pointer-events-auto">
+              <div className="w-20 h-20 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center text-black transform scale-100 group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                {/* Eye Icon SVG */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-12 md:h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+            </MagneticButton>
           </div>
         </div>
 

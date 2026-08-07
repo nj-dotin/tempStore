@@ -9,61 +9,43 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
-    // Reveal text
-    const textElements = sectionRef.current?.querySelectorAll('.reveal-text');
-    if (textElements) {
-      gsap.fromTo(textElements,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%"
-          }
-        }
-      );
-    }
+    gsap.fromTo(sectionRef.current, 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 1, scrollTrigger: { trigger: sectionRef.current, start: 'top 90%' } }
+    );
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="py-32 md:py-48 bg-black text-white px-6 md:px-12 lg:px-24 flex flex-col items-center justify-center min-h-[80vh] text-center border-t border-zinc-900 relative">
-      <div className="absolute inset-0 bg-gold/5 opacity-50 z-0"></div>
+    <footer ref={sectionRef} id="contact" className="bg-black text-white py-24 md:py-32 px-6 md:px-12 lg:px-24 flex flex-col items-center justify-center text-center">
       
-      <div className="relative z-10 w-full max-w-4xl">
-        <p className="reveal-text text-gold font-sans tracking-widest text-sm uppercase mb-6">Let&apos;s Work Together</p>
-        
-        <h2 className="reveal-text text-5xl md:text-8xl font-serif uppercase leading-none tracking-tighter mb-16 hover:text-gold transition-colors duration-500 cursor-pointer" data-cursor="hover" data-cursor-text="LET'S TALK">
-          Contact &<br />Collaboration
+      <div className="mb-12">
+        <p className="text-zinc-400 font-sans text-xs md:text-sm tracking-wide">
+          If you have a General Or Project inquiry.<br/>
+          please drop me an email — <span className="font-bold text-white">AVAILABLE NOW</span>
+        </p>
+      </div>
+
+      <a href="mailto:hello@kishorenayak.com" className="group">
+        <h2 className="text-5xl md:text-[6vw] font-serif uppercase tracking-tight text-white transition-colors duration-300 group-hover:text-gold">
+          SEND AN EMAIL
         </h2>
+      </a>
+
+      <div className="w-full mt-24 md:mt-32 pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-sans tracking-widest text-zinc-500 gap-6 uppercase">
+        <div className="flex gap-6">
+          <a href="#" className="hover:text-white transition-colors">Instagram</a>
+          <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
+          <a href="#" className="hover:text-white transition-colors">YouTube</a>
+        </div>
         
-        <div className="reveal-text flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24 mt-16 font-sans">
-          <div className="flex flex-col gap-4 text-zinc-400">
-            <h4 className="text-xs tracking-widest uppercase text-zinc-600 mb-2 border-b border-zinc-800 pb-2">Reach Out</h4>
-            <a href="mailto:kishornayak9527@gmail.com" className="hover:text-white transition-colors" data-cursor="hover">kishornayak9527@gmail.com</a>
-            <a href="tel:8495014794" className="hover:text-white transition-colors" data-cursor="hover">8495014794</a>
-          </div>
-          
-          <div className="flex flex-col gap-4 text-zinc-400">
-            <h4 className="text-xs tracking-widest uppercase text-zinc-600 mb-2 border-b border-zinc-800 pb-2">Location</h4>
-            <p>Bengaluru, India</p>
-            <p className="text-gold">Status: Open for Projects</p>
-          </div>
-          
-          <div className="flex flex-col gap-4 text-zinc-400">
-            <h4 className="text-xs tracking-widest uppercase text-zinc-600 mb-2 border-b border-zinc-800 pb-2">Services</h4>
-            <p>Choreography / Training</p>
-            <p>Show Direction / Collaborations</p>
-          </div>
+        <div>
+          <span>&copy; {new Date().getFullYear()} ALL RIGHTS RESERVED</span>
+        </div>
+
+        <div>
+          <span>DESIGN & DEVELOPMENT BY <span className="text-white">KISHORE</span></span>
         </div>
       </div>
-      
-      <div className="relative z-10 mt-32 text-zinc-600 text-xs font-sans tracking-widest uppercase">
-        © {new Date().getFullYear()} Kishore Nayak. All Rights Reserved.
-      </div>
-    </section>
+    </footer>
   );
 }
