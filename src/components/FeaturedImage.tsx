@@ -45,7 +45,7 @@ export default function FeaturedImage() {
           src="/tilted-image.jpeg" 
           alt="Featured Pop-up" 
           fill 
-          className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+          className="object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 transition-all duration-700"
           priority
         />
       </div>

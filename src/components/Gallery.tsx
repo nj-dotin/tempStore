@@ -98,7 +98,7 @@ export default function Gallery() {
               src={project.image}
               alt={project.title}
               fill
-              className="portfolio-img object-cover scale-105 grayscale group-hover:scale-100 group-hover:grayscale-0 transition-all duration-700"
+              className="portfolio-img object-cover scale-100 grayscale-0 lg:scale-105 lg:grayscale lg:group-hover:scale-100 lg:group-hover:grayscale-0 transition-all duration-700"
             />
             {/* Dark gradient overlay for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>

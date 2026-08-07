@@ -82,7 +82,7 @@ export default function Experience() {
             src="/featured-work.jpeg"
             alt="Featured Video"
             fill
-            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+            className="object-cover grayscale-0 lg:grayscale lg:group-hover:grayscale-0 transition-all duration-700"
           />
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="pointer-events-auto">
