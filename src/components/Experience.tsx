@@ -2,86 +2,67 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const listsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    gsap.fromTo(titleRef.current, 
-      { opacity: 0, y: 50 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1, 
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%"
-        }
-      }
-    );
-
-    listsRef.current.forEach((list, index) => {
-      if (!list) return;
-      
-      const items = list.querySelectorAll('li');
-      
-      gsap.fromTo(items, 
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: list,
-            start: "top 85%"
-          }
-        }
-      );
+    // Simple marquee animation
+    gsap.to(marqueeRef.current, {
+      xPercent: -50,
+      ease: "none",
+      duration: 15,
+      repeat: -1
     });
-
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="py-24 md:py-48 bg-zinc-950 text-white px-6 md:px-12 lg:px-24">
-      <div className="mb-20">
-        <h2 ref={titleRef} className="text-4xl md:text-6xl font-serif uppercase tracking-widest text-gold mb-16">
-          Training & Choreography
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-          <div ref={el => { listsRef.current[0] = el; }}>
-            <h3 className="text-xl font-sans tracking-widest uppercase mb-8 text-zinc-500 border-b border-zinc-800 pb-4">Experience Highlights</h3>
-            <ul className="space-y-6">
-              <li className="text-lg md:text-xl font-light font-sans text-zinc-300">
-                Led choreography for multiple college fashion teams across major events
-              </li>
-              <li className="text-lg md:text-xl font-light font-sans text-zinc-300">
-                Conducted runway and performance workshops for large student groups
-              </li>
-            </ul>
+    <section id="experience" className="bg-black text-white overflow-hidden pb-24 md:pb-32">
+      {/* Marquee */}
+      <div className="py-12 border-y border-zinc-800 mb-12 md:mb-24 flex whitespace-nowrap overflow-hidden">
+        <div ref={marqueeRef} className="flex gap-8 items-center text-4xl md:text-7xl font-sans tracking-tight uppercase">
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+          <span>PERSONAL PORTFOLIO —</span>
+        </div>
+      </div>
+
+      {/* Large Project Feature */}
+      <div className="w-full px-6 md:px-12 lg:px-24">
+        <div 
+          className="relative w-full aspect-video md:aspect-[21/9] bg-zinc-900 overflow-hidden group cursor-pointer"
+          data-cursor="hover"
+        >
+          <Image
+            src="/hero-image.jpeg"
+            alt="Featured Video"
+            fill
+            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-20 h-20 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center text-black transform scale-100 group-hover:scale-110 transition-transform duration-500">
+              {/* Eye Icon SVG */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-12 md:h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
           </div>
-          
-          <div ref={el => { listsRef.current[1] = el; }}>
-            <h3 className="text-xl font-sans tracking-widest uppercase mb-8 text-zinc-500 border-b border-zinc-800 pb-4">Impact</h3>
-            <ul className="space-y-6">
-              <li className="text-lg md:text-xl font-light font-sans text-zinc-300">
-                Elevated overall team performance and stage execution quality
-              </li>
-              <li className="text-lg md:text-xl font-light font-sans text-zinc-300">
-                Transformed beginners into confident, runway-ready performers
-              </li>
-            </ul>
-          </div>
+        </div>
+
+        {/* Project Meta Info */}
+        <div className="flex justify-between items-center py-6 border-b border-zinc-800 text-xs md:text-sm font-sans tracking-widest uppercase text-zinc-400">
+          <span>KISHORE N.</span>
+          <span>PORTFOLIO</span>
+          <span>CONTACT</span>
         </div>
       </div>
     </section>
