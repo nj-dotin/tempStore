@@ -48,20 +48,15 @@ export default function Contact() {
         </h2>
       </a>
 
-      <div className="w-full mt-24 md:mt-32 pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-sans tracking-widest text-zinc-500 gap-6 uppercase">
-        <div className="flex gap-6">
-          <a href="#" className="hover:text-white transition-colors">Instagram</a>
-          <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-          <a href="#" className="hover:text-white transition-colors">YouTube</a>
-        </div>
-        
-        <div>
-          <span>&copy; {new Date().getFullYear()} ALL RIGHTS RESERVED</span>
-        </div>
-
-        <div>
-          <span>DESIGN & DEVELOPMENT BY <span className="text-white">KISHORE</span></span>
-        </div>
+      <div className="w-full mt-24 md:mt-32 pt-8 border-t border-zinc-800 flex justify-center items-center text-[10px] md:text-xs font-sans tracking-widest text-zinc-500 uppercase">
+        <a 
+          href="https://www.fuera.in.net/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="hover:text-white transition-colors"
+        >
+          design build by <span className="font-bold text-white">FUERA</span>
+        </a>
       </div>
     </footer>
   );
