@@ -71,15 +71,24 @@ export default function Hero() {
 
         <div ref={buttonsRef} className="mt-12 flex gap-6 opacity-0">
           <MagneticButton>
-            <div 
+            <a 
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               data-cursor="hover"
-              className="group relative px-8 py-4 border border-gold/50 rounded-full overflow-hidden inline-block cursor-pointer"
+              className="group relative pl-8 pr-2 py-2 bg-white rounded-full flex items-center gap-6 overflow-hidden cursor-pointer"
             >
-              <span className="relative z-10 text-gold uppercase tracking-widest text-sm transition-colors duration-300 group-hover:text-black">
-                View Featured Work
+              <span className="relative z-10 text-black font-semibold uppercase tracking-widest text-xs">
+                Contact
               </span>
-              <div className="absolute inset-0 bg-gold transform translate-y-[101%] transition-transform duration-300 ease-in-out group-hover:translate-y-0"></div>
-            </div>
+              <div className="relative z-10 w-8 h-8 bg-black rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform -rotate-45 group-hover:rotate-0 transition-transform duration-300">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </a>
           </MagneticButton>
         </div>
       </div>

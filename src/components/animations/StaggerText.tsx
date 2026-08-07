@@ -37,7 +37,7 @@ export default function StaggerText({ text, className = "", delay = 0, trigger }
   return (
     <span ref={containerRef} className={`inline-block ${className}`}>
       {text.split('').map((char, i) => (
-        <span key={i} className="inline-block overflow-hidden pb-1" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}>
+        <span key={i} className="inline-block pb-1" style={{ clipPath: 'polygon(-20% 0%, 120% 0%, 120% 100%, -20% 100%)' }}>
           <span className="char inline-block translate-y-[100%] will-change-transform leading-[0.85]">
             {char === ' ' ? '\u00A0' : char}
           </span>

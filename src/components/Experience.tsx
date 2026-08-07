@@ -3,12 +3,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import MagneticButton from './animations/MagneticButton';
+import EyeTracker from './animations/EyeTracker';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const featureWrapperRef = useRef<HTMLDivElement>(null);
+  const featureImageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     // Simple marquee animation
@@ -18,6 +20,35 @@ export default function Experience() {
       duration: 15,
       repeat: -1
     });
+
+    // Feature Image Reveal (Center-out expansion)
+    if (featureWrapperRef.current && featureImageRef.current) {
+      gsap.fromTo(featureWrapperRef.current,
+        { clipPath: 'inset(50% 50% 50% 50%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.5,
+          ease: "power4.inOut",
+          scrollTrigger: {
+            trigger: featureWrapperRef.current,
+            start: "top 85%",
+          }
+        }
+      );
+      
+      gsap.fromTo(featureImageRef.current,
+        { scale: 1.3 },
+        {
+          scale: 1,
+          duration: 2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: featureWrapperRef.current,
+            start: "top 85%",
+          }
+        }
+      );
+    }
   }, []);
 
   return (
@@ -39,25 +70,22 @@ export default function Experience() {
       {/* Large Project Feature */}
       <div className="w-full px-6 md:px-12 lg:px-24">
         <div 
+          ref={featureWrapperRef}
           className="relative w-full aspect-video md:aspect-[21/9] bg-zinc-900 overflow-hidden group cursor-pointer"
           data-cursor="hover"
+          style={{ clipPath: 'inset(50% 50% 50% 50%)' }}
         >
           <Image
+            ref={featureImageRef}
             src="/featured-work.jpeg"
             alt="Featured Video"
             fill
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
           />
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <MagneticButton className="pointer-events-auto">
-              <div className="w-20 h-20 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center text-black transform scale-100 group-hover:scale-110 transition-transform duration-500 cursor-pointer">
-                {/* Eye Icon SVG */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-12 md:h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-              </div>
-            </MagneticButton>
+            <div className="pointer-events-auto">
+              <EyeTracker />
+            </div>
           </div>
         </div>
 

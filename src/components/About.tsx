@@ -10,8 +10,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLHeadingElement>(null);
   const rightContentRef = useRef<HTMLDivElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   
   useEffect(() => {
     // We removed manual GSAP for the heading since StaggerText handles its own ScrollTrigger
@@ -34,10 +35,39 @@ export default function About() {
         }
       );
     }
+
+    // Image reveal animation (left to right wipe + scale down)
+    if (imageWrapperRef.current && imageRef.current) {
+      gsap.fromTo(imageWrapperRef.current,
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 1.5,
+          ease: "power4.inOut",
+          scrollTrigger: {
+            trigger: imageWrapperRef.current,
+            start: "top 80%",
+          }
+        }
+      );
+      
+      gsap.fromTo(imageRef.current,
+        { scale: 1.3 },
+        {
+          scale: 1,
+          duration: 2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: imageWrapperRef.current,
+            start: "top 80%",
+          }
+        }
+      );
+    }
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="py-24 md:py-40 bg-black flex flex-col items-start justify-center text-left text-white px-6 md:px-12 lg:px-24">
+    <section ref={sectionRef} id="about" className="pt-24 pb-12 md:pt-40 md:pb-20 bg-black flex flex-col items-start justify-center text-left text-white px-6 md:px-12 lg:px-24">
       {/* Huge Typography Intro */}
       <div className="w-full max-w-6xl mb-20 md:mb-32">
         <h2 className="text-4xl md:text-6xl lg:text-[7vw] font-serif uppercase tracking-tight leading-[1.1]">
@@ -83,8 +113,9 @@ export default function About() {
         </div>
 
         {/* Right Side: Image Section */}
-        <div className="w-full md:w-1/2 relative min-h-[400px] h-full flex-grow bg-zinc-900 overflow-hidden">
+        <div ref={imageWrapperRef} className="w-full md:w-1/2 relative min-h-[400px] h-full flex-grow bg-zinc-900 overflow-hidden" style={{ clipPath: 'inset(0 100% 0 0)' }}>
           <Image 
+            ref={imageRef}
             src="/about-image-v3.jpeg" 
             alt="Kishore Nayak" 
             fill 

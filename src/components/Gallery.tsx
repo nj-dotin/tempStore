@@ -7,7 +7,7 @@ import Image from 'next/image';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-  { title: 'Circadia', image: '/gallery-1.jpeg' },
+  { title: 'Circadia', image: '/portfolio-13.jpeg' },
   { title: 'Glory Street', image: '/gallery-2.jpeg' },
   { title: 'East Point', image: '/gallery-3.jpeg' },
   { title: 'BCFC 2025', image: '/gallery-4.jpeg' }
@@ -38,19 +38,37 @@ export default function Gallery() {
     gridRefs.current.forEach((el, index) => {
       if (!el) return;
       
+      const img = el.querySelector('img');
+      
+      // Reveal container left-to-right
       gsap.fromTo(el,
-        { opacity: 0, y: 50 },
+        { clipPath: 'inset(0 100% 0 0)' },
         {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 1.5,
+          ease: 'power4.inOut',
           scrollTrigger: {
             trigger: el,
             start: 'top 85%',
           }
         }
       );
+      
+      // Scale image down slightly while container reveals
+      if (img) {
+        gsap.fromTo(img,
+          { scale: 1.3 },
+          {
+            scale: 1.05, // matches the default scale in the className (scale-105)
+            duration: 2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+            }
+          }
+        );
+      }
     });
   }, []);
 
@@ -71,6 +89,7 @@ export default function Gallery() {
             ref={el => { gridRefs.current[index] = el; }} 
             className="relative w-full aspect-[4/5] overflow-hidden bg-zinc-900 group"
             data-cursor="hover" data-cursor-text="VIEW"
+            style={{ clipPath: 'inset(0 100% 0 0)' }}
           >
             <Image
               src={project.image}
