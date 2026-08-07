@@ -42,7 +42,7 @@ export default function Contact() {
         </svg>
       </div>
 
-      <a href="mailto:hello@kishorenayak.com" className="group">
+      <a href="mailto:kishornayak9527@gmail.com" className="group">
         <h2 className="text-5xl md:text-[6vw] font-serif uppercase tracking-tight text-white transition-colors duration-300 group-hover:text-gold">
           SEND AN EMAIL
         </h2>

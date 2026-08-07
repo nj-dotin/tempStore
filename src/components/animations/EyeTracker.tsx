@@ -53,9 +53,9 @@ export default function EyeTracker() {
       <div ref={textRingRef} className="absolute w-[160px] h-[160px] md:w-[220px] md:h-[220px] pointer-events-none opacity-80">
         <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
           <path id="textPath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="none" />
-          <text className="text-[9px] font-sans tracking-[0.3em] uppercase">
+          <text className="text-[9px] font-sans tracking-[0.25em] uppercase">
             <textPath href="#textPath" startOffset="0%">
-              PORTFOLIO • KISHORE N. • PORTFOLIO • KISHORE N. • 
+              CLICK TO EXPLORE PORTFOLIO • CLICK TO EXPLORE PORTFOLIO • 
             </textPath>
           </text>
         </svg>
