@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import Link from 'next/link';
 import EyeTracker from './animations/EyeTracker';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -69,9 +70,10 @@ export default function Experience() {
 
       {/* Large Project Feature */}
       <div className="w-full px-6 md:px-12 lg:px-24">
-        <div 
-          ref={featureWrapperRef}
-          className="relative w-full aspect-video md:aspect-[21/9] bg-zinc-900 overflow-hidden group cursor-pointer"
+        <Link 
+          href="/personal-portfolio"
+          ref={featureWrapperRef as any}
+          className="relative w-full aspect-video md:aspect-[21/9] bg-zinc-900 overflow-hidden group cursor-pointer block"
           data-cursor="hover"
           style={{ clipPath: 'inset(50% 50% 50% 50%)' }}
         >
@@ -87,7 +89,7 @@ export default function Experience() {
               <EyeTracker />
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Project Meta Info */}
         <div className="flex justify-between items-center py-6 border-b border-zinc-800 text-xs md:text-sm font-sans tracking-widest uppercase text-zinc-400">

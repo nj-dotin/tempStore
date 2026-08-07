@@ -44,8 +44,21 @@ export default function CustomCursor() {
       
       if (cursorTarget) {
         const cursorText = cursorTarget.getAttribute('data-cursor-text');
+        const cursorType = cursorTarget.getAttribute('data-cursor-type');
         
-        if (cursorText) {
+        if (cursorType === 'eye') {
+          gsap.to(cursor, {
+            width: 80,
+            height: 80,
+            backgroundColor: 'transparent',
+            border: 'none',
+            mixBlendMode: 'normal',
+            duration: 0.3,
+            ease: "power2.out"
+          });
+          gsap.to('#eye-cursor-content', { opacity: 1, scale: 1, duration: 0.3 });
+          gsap.to(label, { opacity: 0, duration: 0.1 });
+        } else if (cursorText) {
           label.textContent = cursorText;
           gsap.to(cursor, {
             width: 80,
@@ -70,6 +83,7 @@ export default function CustomCursor() {
       } else {
         // Reset
         label.textContent = '';
+        gsap.to('#eye-cursor-content', { opacity: 0, scale: 0, duration: 0.2 });
         gsap.to(cursor, {
           width: 16,
           height: 16,
@@ -107,7 +121,24 @@ export default function CustomCursor() {
       className="fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[100] flex items-center justify-center mix-blend-difference"
       style={{ willChange: 'transform, width, height' }}
     >
-      <span ref={cursorLabelRef} className="text-[10px] font-sans font-bold text-black uppercase opacity-0 tracking-wider pointer-events-none"></span>
+      <span ref={cursorLabelRef} className="absolute text-[10px] font-sans font-bold text-black uppercase opacity-0 tracking-wider pointer-events-none whitespace-nowrap"></span>
+      
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 scale-0" id="eye-cursor-content">
+        <svg viewBox="0 0 100 100" className="w-[180%] h-[180%] absolute animate-[spin_8s_linear_infinite] text-white">
+          <path id="cursorTextPath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+          <text className="text-[10px] font-sans tracking-[0.25em] uppercase fill-current">
+            <textPath href="#cursorTextPath" startOffset="0%">
+              THIS IS KISHORE PORTFOLIO • THIS IS KISHORE PORTFOLIO • 
+            </textPath>
+          </text>
+        </svg>
+        <div className="w-full h-full bg-white rounded-full flex items-center justify-center z-10">
+          <svg viewBox="0 0 24 24" fill="black" className="w-1/2 h-1/2">
+             <path d="M12 4.5C7 4.5 2.73 7.61 1 12.5c1.73 4.89 6 8 11 8s9.27-3.11 11-8c-1.73-4.89-6-8-11-8zm0 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+             <circle cx="12" cy="12.5" r="3" fill="black"/>
+          </svg>
+        </div>
+      </div>
     </div>
   );
 }

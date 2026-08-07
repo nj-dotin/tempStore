@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import { useState } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,7 +17,8 @@ const projects = [
 export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const gridRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const gridRefs = useRef<(HTMLElement | null)[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     // Title reveal
@@ -84,10 +86,11 @@ export default function Gallery() {
       {/* 2-Column Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         {projects.map((project, index) => (
-          <div 
+          <div
             key={index}
+            onClick={() => setSelectedImage(project.image)}
             ref={el => { gridRefs.current[index] = el; }} 
-            className="relative w-full aspect-[4/5] overflow-hidden bg-zinc-900 group"
+            className="relative w-full aspect-[4/5] overflow-hidden bg-zinc-900 group block cursor-pointer"
             data-cursor="hover" data-cursor-text="VIEW"
             style={{ clipPath: 'inset(0 100% 0 0)' }}
           >
@@ -107,6 +110,25 @@ export default function Gallery() {
           </div>
         ))}
       </div>
+
+      {/* Fullscreen Lightbox Overlay */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm cursor-pointer p-4 md:p-12"
+          onClick={() => setSelectedImage(null)}
+          data-cursor="hover"
+          data-cursor-text="CLOSE"
+        >
+          <div className="relative w-full max-w-5xl h-full animate-in fade-in zoom-in-95 duration-500">
+            <Image
+              src={selectedImage}
+              alt="Expanded view"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
