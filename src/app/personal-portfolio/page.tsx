@@ -25,8 +25,8 @@ const images = [
 ];
 
 // How large the virtual bounding box is. 
-// Decreased to 2200 for a very tight, dense layout.
-const CANVAS_SIZE = 2200; 
+// Decreased to 1800 to make the images even closer and reduce empty space.
+const CANVAS_SIZE = 1800; 
 
 function wrap(value: number, min: number, max: number) {
   const range = max - min;
@@ -136,14 +136,26 @@ export default function InfiniteCanvasPortfolio() {
       itemsRef.current.forEach((el, i) => {
         if (!el) return;
         const param = layoutParams[i];
-        
-        // Apply parallax to the camera distance
-        let dx = param.x - cx * param.parallax;
-        let dy = param.y - cy * param.parallax;
 
-        // Wrap coords infinitely using Modulo
-        dx = wrap(dx, -CANVAS_SIZE / 2, CANVAS_SIZE / 2);
-        dy = wrap(dy, -CANVAS_SIZE / 2, CANVAS_SIZE / 2);
+        // Raw distance before wrap
+        const rawDx = param.x - camera.current.x;
+        const rawDy = param.y - camera.current.y;
+
+        // Calculate which "wrap cycle" this image is currently in
+        const wrapCountX = Math.floor((rawDx + CANVAS_SIZE / 2) / CANVAS_SIZE);
+        const wrapCountY = Math.floor((rawDy + CANVAS_SIZE / 2) / CANVAS_SIZE);
+
+        // Generate a pseudo-random hash (0.0 to 1.0) specific to this exact wrap clone
+        const hash = Math.abs(Math.sin(wrapCountX * 12.9898 + wrapCountY * 78.233 + i * 45.123) * 43758.5453) % 1;
+
+        // Apply wrapping logic
+        let dx = rawDx % CANVAS_SIZE;
+        let dy = rawDy % CANVAS_SIZE;
+
+        if (dx > CANVAS_SIZE / 2) dx -= CANVAS_SIZE;
+        if (dx < -CANVAS_SIZE / 2) dx += CANVAS_SIZE;
+        if (dy > CANVAS_SIZE / 2) dy -= CANVAS_SIZE;
+        if (dy < -CANVAS_SIZE / 2) dy += CANVAS_SIZE;
 
         // Add slow float animation
         const floatY = Math.sin(time * param.floatSpeed + param.floatOffset) * 25;
@@ -153,8 +165,24 @@ export default function InfiniteCanvasPortfolio() {
         const screenX = dx + hw;
         const screenY = dy + hh + floatY;
 
-        // Apply hardware-accelerated transform via string
-        el.style.transform = `translate3d(calc(-50% + ${screenX}px), calc(-50% + ${screenY}px), 0) scale(${param.scale}) rotate(${param.rotation + driftRotate}deg)`;
+        // Use the hash to create dynamic variety so repeating images look totally different
+        const dynamicScale = param.scale * (0.6 + hash * 0.9); // Scale varies wildly between 60% and 150%
+        
+        let dynamicFilter = 'none';
+        if (hash < 0.15) {
+          dynamicFilter = 'invert(1) contrast(1.2)'; // 15% chance to be inverted
+        } else if (hash > 0.85) {
+          dynamicFilter = 'grayscale(1) contrast(1.3)'; // 15% chance to be black and white
+        } else if (hash > 0.4 && hash < 0.5) {
+          dynamicFilter = 'sepia(0.8) hue-rotate(320deg) contrast(1.1)'; // 10% chance to be moody warm
+        }
+
+        // Apply hardware-accelerated transform and dynamic filters
+        el.style.transform = `translate3d(calc(-50% + ${screenX}px), calc(-50% + ${screenY}px), 0) scale(${dynamicScale}) rotate(${param.rotation + driftRotate}deg)`;
+        el.style.filter = dynamicFilter;
+        
+        // Slightly change z-index based on hash to mix up the overlapping order
+        el.style.zIndex = Math.floor(hash * 20).toString();
       });
 
       animationFrameId = requestAnimationFrame(render);
