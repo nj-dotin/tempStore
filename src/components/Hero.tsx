@@ -64,7 +64,7 @@ export default function Hero() {
           alt="Kishore Nayak"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-top"
         />
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
